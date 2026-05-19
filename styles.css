@@ -1,0 +1,376 @@
+:root {
+  color-scheme: light;
+  font-family:
+    Inter, Pretendard, "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --ink: #1f2732;
+  --paper: rgba(255, 250, 240, 0.9);
+  --paper-solid: #fff8e9;
+  --mint: #49b38a;
+  --coral: #ef6b5a;
+  --amber: #f0b84f;
+  --blue: #4f88c6;
+  --shadow: rgba(30, 24, 20, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  color: var(--ink);
+  background: #9ed0dc;
+  letter-spacing: 0;
+}
+
+button {
+  font: inherit;
+  border: 0;
+  cursor: pointer;
+}
+
+#game {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+.hud {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.topbar {
+  position: absolute;
+  top: max(12px, env(safe-area-inset-top));
+  left: 50%;
+  width: min(920px, calc(100vw - 24px));
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: 92px minmax(120px, 1fr) minmax(120px, 1fr) 150px;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.metric,
+.meter,
+.stage-chip {
+  min-height: 54px;
+  padding: 8px 10px;
+  background: var(--paper);
+  border: 2px solid rgba(62, 56, 48, 0.14);
+  border-radius: 8px;
+  box-shadow: 0 12px 30px var(--shadow);
+  backdrop-filter: blur(8px);
+}
+
+.metric {
+  display: grid;
+  align-content: center;
+  gap: 2px;
+}
+
+.metric strong {
+  font-size: clamp(22px, 4vw, 34px);
+  line-height: 1;
+  color: var(--coral);
+}
+
+.metric.wide strong {
+  font-size: 18px;
+  color: var(--mint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.label {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(31, 39, 50, 0.66);
+}
+
+.meter {
+  display: grid;
+  gap: 6px;
+  align-content: center;
+}
+
+.bar {
+  height: 16px;
+  overflow: hidden;
+  background: rgba(31, 39, 50, 0.14);
+  border-radius: 8px;
+  outline: 1px solid rgba(31, 39, 50, 0.12);
+}
+
+.bar span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #5fcf97, #f0b84f, #ef6b5a);
+  transition: width 120ms linear;
+}
+
+.bar.boost span {
+  background: linear-gradient(90deg, #4f88c6, #58c8ba, #f0b84f);
+}
+
+.stage-chip {
+  position: absolute;
+  top: calc(max(12px, env(safe-area-inset-top)) + 68px);
+  left: 50%;
+  min-height: 0;
+  padding: 8px 12px;
+  transform: translateX(-50%);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.screen {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    linear-gradient(rgba(76, 141, 145, 0.18), rgba(255, 241, 198, 0.12)),
+    rgba(27, 40, 50, 0.22);
+}
+
+.screen.hidden {
+  display: none;
+}
+
+.panel {
+  width: min(520px, calc(100vw - 32px));
+  padding: clamp(22px, 5vw, 40px);
+  background: var(--paper-solid);
+  border: 2px solid rgba(62, 56, 48, 0.18);
+  border-radius: 8px;
+  box-shadow: 0 28px 80px rgba(20, 26, 32, 0.28);
+  text-align: center;
+}
+
+.kicker {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--blue);
+}
+
+h1,
+h2 {
+  margin: 0;
+  line-height: 0.98;
+}
+
+h1 {
+  font-size: clamp(42px, 11vw, 78px);
+}
+
+h2 {
+  font-size: clamp(34px, 8vw, 58px);
+}
+
+.tagline {
+  margin: 16px auto 26px;
+  max-width: 34ch;
+  font-size: 17px;
+  line-height: 1.55;
+  color: rgba(31, 39, 50, 0.74);
+}
+
+.primary {
+  min-width: 148px;
+  min-height: 48px;
+  padding: 0 20px;
+  color: #fffaf0;
+  background: var(--coral);
+  border-radius: 8px;
+  font-weight: 900;
+  box-shadow: 0 10px 0 #b94c42;
+  transform: translateY(-2px);
+}
+
+.primary:active {
+  box-shadow: 0 4px 0 #b94c42;
+  transform: translateY(4px);
+}
+
+.stars {
+  margin: 18px 0;
+  font-size: clamp(36px, 9vw, 62px);
+  line-height: 1;
+  color: var(--amber);
+}
+
+.result-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 0 0 24px;
+}
+
+.result-list div {
+  padding: 10px 8px;
+  background: rgba(79, 136, 198, 0.1);
+  border: 1px solid rgba(79, 136, 198, 0.18);
+  border-radius: 8px;
+}
+
+.result-list dt {
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 900;
+  color: rgba(31, 39, 50, 0.58);
+}
+
+.result-list dd {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.touch-pad,
+.touch-actions {
+  position: fixed;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.touch-pad {
+  left: max(18px, env(safe-area-inset-left));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  width: 154px;
+  height: 154px;
+  display: grid;
+  grid-template-areas:
+    ". up ."
+    "left . right"
+    ". down .";
+  gap: 8px;
+}
+
+.touch-actions {
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(22px, env(safe-area-inset-bottom));
+  display: flex;
+  gap: 10px;
+  align-items: end;
+}
+
+.touch-pad button,
+.touch-actions button {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  color: #fffaf0;
+  background: rgba(31, 39, 50, 0.72);
+  border: 2px solid rgba(255, 250, 240, 0.38);
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(20, 26, 32, 0.24);
+  backdrop-filter: blur(6px);
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.touch-actions button {
+  width: 56px;
+  height: 56px;
+  font-size: 24px;
+}
+
+.touch-pad button.is-down,
+.touch-actions button.is-down {
+  background: var(--mint);
+  transform: translateY(2px);
+}
+
+.touch-pad .up {
+  grid-area: up;
+}
+
+.touch-pad .left {
+  grid-area: left;
+}
+
+.touch-pad .right {
+  grid-area: right;
+}
+
+.touch-pad .down {
+  grid-area: down;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .touch-pad,
+  .touch-actions {
+    opacity: 0.38;
+  }
+
+  .touch-pad:hover,
+  .touch-actions:hover {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 760px) {
+  .topbar {
+    grid-template-columns: 78px 1fr 1fr;
+  }
+
+  .metric.wide {
+    grid-column: 1 / -1;
+    min-height: 38px;
+  }
+
+  .stage-chip {
+    display: none;
+  }
+
+  .result-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 460px) {
+  .topbar {
+    width: calc(100vw - 16px);
+    gap: 6px;
+  }
+
+  .metric,
+  .meter {
+    min-height: 48px;
+    padding: 7px 8px;
+  }
+
+  .touch-pad {
+    width: 132px;
+    height: 132px;
+    gap: 6px;
+  }
+
+  .touch-pad button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .touch-actions button {
+    width: 48px;
+    height: 48px;
+  }
+}
