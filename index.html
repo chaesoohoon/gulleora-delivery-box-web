@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>굴러라 배달상자</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="game" aria-label="굴러라 배달상자 게임 화면"></canvas>
+
+    <main class="hud" aria-live="polite">
+      <section class="topbar" aria-label="배송 상태">
+        <div class="metric">
+          <span class="label">시간</span>
+          <strong id="timeText">90</strong>
+        </div>
+        <div class="meter">
+          <span class="label">파손</span>
+          <div class="bar"><span id="damageBar"></span></div>
+        </div>
+        <div class="meter">
+          <span class="label">부스터</span>
+          <div class="bar boost"><span id="boostBar"></span></div>
+        </div>
+        <div class="metric wide">
+          <span class="label">상태</span>
+          <strong id="stateText">대기</strong>
+        </div>
+      </section>
+
+      <section class="stage-chip" aria-label="현재 스테이지">
+        <span id="stageText">편의점 앞 배달</span>
+      </section>
+    </main>
+
+    <section id="menu" class="screen">
+      <div class="panel">
+        <p class="kicker">3D 물리 액션 프로토타입</p>
+        <h1>굴러라 배달상자</h1>
+        <p class="tagline">상자가 되어 골목, 계단, 시장길을 지나 목적지까지 굴러가세요.</p>
+        <button id="startButton" class="primary">배송 시작</button>
+      </div>
+    </section>
+
+    <section id="result" class="screen hidden" aria-live="assertive">
+      <div class="panel">
+        <p class="kicker" id="resultKicker">배송 완료</p>
+        <h2 id="resultTitle">도착했습니다</h2>
+        <div id="stars" class="stars" aria-label="별점">---</div>
+        <dl class="result-list">
+          <div>
+            <dt>기록</dt>
+            <dd id="finalTime">0.0초</dd>
+          </div>
+          <div>
+            <dt>파손</dt>
+            <dd id="finalDamage">0%</dd>
+          </div>
+          <div>
+            <dt>보너스</dt>
+            <dd id="finalBonus">0개</dd>
+          </div>
+        </dl>
+        <button id="retryButton" class="primary">다시 배송</button>
+      </div>
+    </section>
+
+    <nav class="touch-pad" aria-label="이동">
+      <button data-control="forward" class="up" aria-label="앞으로">▲</button>
+      <button data-control="left" class="left" aria-label="왼쪽">◀</button>
+      <button data-control="back" class="down" aria-label="뒤로">▼</button>
+      <button data-control="right" class="right" aria-label="오른쪽">▶</button>
+    </nav>
+
+    <nav class="touch-actions" aria-label="액션">
+      <button data-control="jump" aria-label="점프">↥</button>
+      <button data-control="brake" aria-label="브레이크">■</button>
+      <button data-control="boost" aria-label="부스터">⚡</button>
+    </nav>
+
+    <script src="game.js"></script>
+  </body>
+</html>
